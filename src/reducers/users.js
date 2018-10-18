@@ -25,6 +25,36 @@ export default function users(state, action) {
       }
       break;
 
+    case 'USER_DELETE_SUCCESS':
+      const removed = action.user
+
+      return {
+        ...state,
+        mapById: {
+          ...state.mapById,
+          [removed.ID]: {
+            ...removed,
+            isRemoved: true
+          }
+        }
+      }
+      break;
+
+    case 'USER_CREATE_SUCCESS':
+      const created = action.user
+
+      return {
+        ...state,
+        mapById: {
+          ...state.mapById,
+          [created.ID]: {
+            ...created
+          }
+        },
+        orderId: [created.ID, ...state.orderId]
+      }
+      break;
+      
     // initial state
     default:
       return state || {

@@ -4,10 +4,17 @@ import { Link } from 'react-router';
 export default class User extends React.Component {
   
   render() {
-    const { ID, Login, AvatarURL, isSelected } = this.props
+    const { ID, Login, AvatarURL, isSelected, isRemoved } = this.props
     
+    let className = 'user'
+    if (isRemoved) {
+      className = `${className} user_removed`
+    } else if (isSelected) {
+      className = `${className} user_selected`
+    }
+
     return (
-      <Link className={isSelected ? 'user user_selected' : 'user'} to={{ pathname: '/', query: { user: ID } }}>
+      <Link className={className} to={{ pathname: '/', query: { user: ID } }}>
         <div className="user__image">
           <img src={AvatarURL || '/media/avatar_default.png'} />
         </div>

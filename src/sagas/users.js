@@ -20,6 +20,24 @@ export function* fetchUser(action) {
   });
 }
 
+export function* deleteUser(action) {
+  const data = yield call(usersApi.deleteUser, action.id);
+
+  yield put({
+    type: 'USER_DELETE_SUCCESS',
+    user: data.DeleteUser,
+  });
+}
+
+export function* createUser(action) {
+  const data = yield call(usersApi.createUser, { login: action.login });
+
+  yield put({
+    type: 'USER_CREATE_SUCCESS',
+    user: data.CreateUser,
+  });
+}
+
 // // add/edit a user
 // export function* usersAddEdit(action) {
 //   // call the api to add/edit the user

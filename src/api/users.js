@@ -7,6 +7,8 @@ class UserApi {
     this.client = client
     this.getList = this.getList.bind(this)
     this.getUser = this.getUser.bind(this)
+    this.deleteUser = this.deleteUser.bind(this)
+    this.createUser = this.createUser.bind(this)
   }
 
   getList() {
@@ -25,6 +27,33 @@ class UserApi {
     return this.client.request(`
       query {
         User(id:"${id}") {
+          ID
+          Login
+          AvatarURL
+        }
+      }
+    `)
+  }
+
+  deleteUser(id) {
+    return this.client.request(`
+      mutation DeleteUser {
+        DeleteUser(id:"${id}") {
+          ID
+          Login
+          AvatarURL
+        }
+      }
+    `)
+  }
+
+  createUser(data) {
+    if (!data) {
+      return
+    }
+    return this.client.request(`
+      mutation CreateUser {
+        CreateUser(input:{Login: "${data.login}"}) {
           ID
           Login
           AvatarURL
